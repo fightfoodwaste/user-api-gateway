@@ -18,10 +18,25 @@ spring:
             - Path=/account/**
           filters:
             - AuthenticationFilter
+
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/orders/**
+
+        - id: products-service
+          uri: lb://PRODUCTS-SERVICE
+          predicates:
+            - Path=/products/**, /product_stock/**
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info, prometheus
 
 eureka:
   instance:
@@ -32,3 +47,6 @@ eureka:
       defaultZone: http://${EUREKA_INSTANCE_HOSTNAME}:${EUREKA_SERVER_PORT}/eureka
     register-with-eureka: true
     fetch-registry: true
+
+secret:
+  key: ${JWT_SECRET:5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437}
