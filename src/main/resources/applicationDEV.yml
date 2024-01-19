@@ -23,11 +23,15 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/orders/**
+          filters:
+            - AuthenticationFilter
 
         - id: product-service
           uri: lb://PRODUCT-SERVICE
           predicates:
             - Path=/products/**, /product_stock/**
+          filters:
+            - AuthenticationFilter
       discovery:
         locator:
           enabled: true
@@ -42,10 +46,6 @@ management:
 eureka:
   instance:
     prefer-ip-address: true
-    ip-address: localhost
-    hostname: localhost
-    metadata-map:
-      metrics_path: /actuator/prometheus
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
