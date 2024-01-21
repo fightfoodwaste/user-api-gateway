@@ -11,33 +11,25 @@ spring:
           uri: lb://USER-AUTH
           predicates:
             - Path=/auth/**
-          filters:
-            - AuthenticationFilter
 
         - id: user-account
           uri: lb://USER-ACCOUNT
           predicates:
             - Path=/account/**
-          filters:
-            - AuthenticationFilter
 
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/orders/**
-          filters:
-            - AuthenticationFilter
 
         - id: products-service
           uri: lb://PRODUCTS-SERVICE
           predicates:
             - Path=/products/**, /product_stock/**
-          filters:
-            - AuthenticationFilter
       discovery:
         locator:
           enabled: true
-          lower-case-service-id: true
+          lsower-case-service-id: true
 management:
   endpoints:
     web:
