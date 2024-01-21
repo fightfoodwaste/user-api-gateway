@@ -64,6 +64,9 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+        
+    - name: Run OWASP Dependency-Check
+      run: mvn org.owasp:dependency-check-maven:check
   
   
         
